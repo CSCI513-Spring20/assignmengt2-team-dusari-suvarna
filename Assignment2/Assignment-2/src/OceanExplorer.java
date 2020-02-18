@@ -9,12 +9,14 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
 public class OceanExplorer extends Application{
 	final int dimension = 10;
 	final int scale = 50;
-	boolean[][] oceanGrid = new boolean[10][10];
+	int[][] oceanGrid = new int[10][10];
 	OceanMap oceanMap = new OceanMap();
 	Image shipImage;
+	Image island;
 	Ship ship;
 	ImageView shipImageView;
 	Point startPoint;
@@ -38,6 +40,7 @@ public class OceanExplorer extends Application{
 		oceanStage.setScene(scene);
 		oceanStage.setTitle("My Island");
 		oceanStage.show();
+		oceanMap.placeIslands();
 		drawMap(myPane);
 		startPoint = oceanMap.getShipLocation();
 		ship = new Ship(startPoint.x,startPoint.y);
@@ -50,7 +53,20 @@ public class OceanExplorer extends Application{
 			 for(int y = 0; y < dimension; y++){
 			 Rectangle rect = new Rectangle(x*scale,y*scale,scale,scale);
 			rect.setStroke(Color.BLACK); // We want the black outline
-			rect.setFill(Color.PALETURQUOISE); // I like this color better than BLUE
+			if(oceanGrid[x][y] == 1) {
+				island = new Image("island.jpg", 50, 50, true, true);
+
+				ImagePattern imagePattern = new ImagePattern(island);
+
+				rect.setFill(imagePattern);
+
+			}
+
+			else {
+
+				rect.setFill(Color.PALETURQUOISE);
+
+			}
 			myPane.getChildren().add(rect); // Add to the node tree in the pane
 			}
 			}
