@@ -21,6 +21,7 @@ public class OceanExplorer extends Application{
 	Point shipStartPos;
 	Point pirateStartPos1,pirateStartPos2;
 	PirateShip pirate1,pirate2;
+	boolean caughtShip;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -102,6 +103,11 @@ public class OceanExplorer extends Application{
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent ke) {
+				if(ship.getShipLocation().equals(pirate1.getShipLocation()) || 
+						ship.getShipLocation().equals(pirate2.getShipLocation())){	
+					caughtShip = true;
+				}
+				if(!caughtShip) {
 				switch (ke.getCode()) {
 				case RIGHT:
 					ship.goEast();
@@ -118,12 +124,13 @@ public class OceanExplorer extends Application{
 				default:
 					break;
 				}
+				}
 				shipImageView.setX(ship.getShipLocation().x * scale);
 				shipImageView.setY(ship.getShipLocation().y * scale);
-				/*pirateShipView1.setX(pirate1.getShipLocation().x * scale);
+				pirateShipView1.setX(pirate1.getShipLocation().x * scale);
 				pirateShipView1.setY(pirate1.getShipLocation().y * scale);
 				pirateShipView2.setX(pirate2.getShipLocation().x * scale);
-				pirateShipView2.setY(pirate2.getShipLocation().y * scale);*/
+				pirateShipView2.setY(pirate2.getShipLocation().y * scale);
 				
 			}
 		});
