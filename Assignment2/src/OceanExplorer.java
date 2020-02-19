@@ -1,5 +1,6 @@
 import java.awt.Point;
 import javafx.application.*;
+import javafx.scene.control.Button;
 import javafx.scene.shape.Rectangle;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
@@ -10,6 +11,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+
+//This class is responsible for the stage display and adding ocean,islands,ship,pirate ship
 public class OceanExplorer extends Application{
 	final int dimension = 10;
 	final int scale = 50;
@@ -29,9 +32,18 @@ public class OceanExplorer extends Application{
 
 	}
 
+	/*This method is responsible for setting the stage which will execute 
+	only for the first time*/
 	@Override
 	public void start(Stage oceanStage) throws Exception {
 		// TODO Auto-generated method stub
+		
+		//This loop is for initializing the grid when reset button is clicked
+		for(int x = 0; x < 10; x++){
+  			 for(int y = 0; y < 10; y++){
+  					 oceanGrid[x][y] = 0;
+  			 }
+  			 }
 		AnchorPane myPane = new AnchorPane();
 		Scene scene = new Scene(myPane,500,500);	
 		oceanStage.setScene(scene);
@@ -53,6 +65,22 @@ public class OceanExplorer extends Application{
 		
 		LoadShipImage(myPane);
 		startSailing(scene);
+		
+		//This code is for adding the button and setting the action for it
+		Button btn = new Button();
+        btn.setText("Reset Button");
+        btn.setMaxWidth(100);
+        btn.setMaxHeight(200);
+        btn.setOnAction(value ->  {
+            try {
+            	caughtShip = false;//Setting the value for the next cycle
+				start(oceanStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+         });
+		myPane.getChildren().add(btn);
 	}
 	
 	public void drawMap(AnchorPane myPane) {

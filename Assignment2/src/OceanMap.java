@@ -1,4 +1,6 @@
 import java.awt.Point;
+
+//This class is responsible for placing the islands,ships and setting the cell value
 import java.util.Random;
 public class OceanMap{
 	int x,y;
@@ -11,6 +13,7 @@ public class OceanMap{
 		return oceanGrid;
 	}
 
+	
     public Point getShipLocation(){
 		x = rand.nextInt(10);		// Generating a random number from 0 -10
 		y = rand.nextInt(10);
